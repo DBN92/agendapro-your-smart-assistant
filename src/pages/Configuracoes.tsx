@@ -39,6 +39,7 @@ export default function Configuracoes() {
   const [activeTab, setActiveTab] = useState("empresa");
   const [selectedColor, setSelectedColor] = useState(0);
   const [embedUrl, setEmbedUrl] = useState("");
+  const apiBase = import.meta.env.VITE_API_BASE || "/api";
   const assistantOrigin = typeof window !== "undefined" ? window.location.origin : "";
   const assistantEmbedSrc = assistantOrigin ? `${assistantOrigin}/assistente` : "";
   const embedCode = `<iframe src="${assistantEmbedSrc}" width="420" height="640" style="border:0;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.12)"></iframe>`;
@@ -49,8 +50,8 @@ export default function Configuracoes() {
   const [assistantBubbleRadius, setAssistantBubbleRadius] = useState("xl");
 
   const loadAssistantSettings = async () => {
-    try {
-      const res = await fetch("/api/assistant/settings");
+      try {
+        const res = await fetch(`${apiBase}/assistant/settings`);
       const data = await res.json();
       const s = data?.settings || {};
       if (typeof s.embedUrl === "string") setEmbedUrl(s.embedUrl);
@@ -64,7 +65,7 @@ export default function Configuracoes() {
 
   const saveAssistantSettings = async () => {
     try {
-      await fetch("/api/assistant/settings", {
+      await fetch(`${apiBase}/assistant/settings`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ 
@@ -82,7 +83,7 @@ export default function Configuracoes() {
       const name = (document.getElementById("companyName") as HTMLInputElement)?.value || "";
       const phone = (document.getElementById("phone") as HTMLInputElement)?.value || "";
       const address = (document.getElementById("address") as HTMLInputElement)?.value || "";
-      await fetch("/api/settings", {
+      await fetch(`${apiBase}/settings`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ company: { name, phone, address } })
@@ -100,7 +101,7 @@ export default function Configuracoes() {
     try {
       const compactSidebar = getSwitchChecked("appearanceCompact") || false;
       const animations = getSwitchChecked("appearanceAnimations") || true;
-      await fetch("/api/settings", {
+      await fetch(`${apiBase}/settings`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ appearance: { presetIndex: selectedColor, compactSidebar, animations } })
@@ -127,7 +128,7 @@ export default function Configuracoes() {
       const email = getSwitchChecked("notifEmail") || false;
       const push = getSwitchChecked("notifPush") || false;
       const payment = getSwitchChecked("notifPayment") || false;
-      await fetch("/api/settings", {
+      await fetch(`${apiBase}/settings`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ notifications: { whatsapp, email, push, payment } })
@@ -144,7 +145,7 @@ export default function Configuracoes() {
         const end = (document.getElementById(`hours-end-${i}`) as HTMLInputElement)?.value || "18:00";
         return { open, start, end };
       });
-      await fetch("/api/settings", {
+      await fetch(`${apiBase}/settings`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ hours: days })
@@ -165,9 +166,17 @@ export default function Configuracoes() {
     } catch (_e) { void 0 }
   };
 
-  if (typeof window !== "undefined") {
-    // eslint-disable-next-line
-  }
+  useState(() => {
+    (async () => {
+      try {
+        const res = await fetch(`${apiBase}/settings`);
+        const data = await res.json();
+        const presetIndex = data?.settings?.appearance?.presetIndex;
+        if (typeof presetIndex === "number") setSelectedColor(presetIndex);
+      } catch (_e) { void 0 }
+    })();
+    return 0;
+  });
 
   return (
     <DashboardLayout 

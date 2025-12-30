@@ -9,11 +9,12 @@ interface RevenueData {
 
 export function RevenueChart() {
   const [data, setData] = useState<RevenueData[]>([]);
+  const apiBase = import.meta.env.VITE_API_BASE || "/api";
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const res = await fetch('/api/revenue/weekly');
+        const res = await fetch(`${apiBase}/revenue/weekly`);
         const body = await res.json();
         setData(Array.isArray(body.data) ? body.data : []);
       } catch (e) {
@@ -21,7 +22,7 @@ export function RevenueChart() {
       }
     };
     fetchData();
-  }, []);
+  }, [apiBase]);
 
   return (
     <div className="bg-card glass-strong rounded-xl shadow-sm border border-border p-5 animate-slide-up">

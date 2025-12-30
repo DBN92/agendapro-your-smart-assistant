@@ -53,11 +53,12 @@ export default function Assistente() {
     return cid;
   });
   const [assistantTheme, setAssistantTheme] = useState<{ presetIndex: number; showHeader: boolean; bubbleRadius: string }>({ presetIndex: 0, showHeader: true, bubbleRadius: "xl" });
+  const apiBase = import.meta.env.VITE_API_BASE || "/api";
 
   useEffect(() => {
     (async () => {
       try {
-        const res = await fetch("/api/assistant/settings");
+        const res = await fetch(`${apiBase}/assistant/settings`);
         const data = await res.json();
         const t = data?.settings?.assistantTheme;
         if (t) setAssistantTheme({
@@ -67,7 +68,7 @@ export default function Assistente() {
         });
       } catch (_e) { void 0 }
     })();
-  }, []);
+  }, [apiBase]);
 
   const handleNewConversation = () => {
     const cid = `c-${Date.now()}`;
@@ -95,7 +96,7 @@ export default function Assistente() {
     setMessages((prev) => [...prev, { id: assistantId, role: "assistant", content: "", timestamp: new Date() }]);
     const fallback = async () => {
       try {
-        const res = await fetch("/api/assistant", {
+        const res = await fetch(`${apiBase}/assistant`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ message: userMessage.content, conversationId })
@@ -115,7 +116,7 @@ export default function Assistente() {
     };
 
     try {
-      const es = new EventSource(`/api/assistant/stream?message=${encodeURIComponent(userMessage.content)}&conversationId=${encodeURIComponent(conversationId)}`);
+      const es = new EventSource(`${apiBase}/assistant/stream?message=${encodeURIComponent(userMessage.content)}&conversationId=${encodeURIComponent(conversationId)}`);
       es.onmessage = (ev) => {
         const delta = ev.data ? JSON.parse(ev.data) : "";
         if (typeof delta === "string" && delta.length > 0) {

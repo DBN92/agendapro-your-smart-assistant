@@ -29,6 +29,7 @@ export default function Agendamentos() {
   const [appointments, setAppointments] = useState<Appointment[]>([]);
   const [newIds, setNewIds] = useState<Set<string>>(new Set());
   const knownIdsRef = useRef<Set<string>>(new Set());
+  const apiBase = import.meta.env.VITE_API_BASE || "/api";
   const [hours, setHours] = useState<Array<{ open: boolean; start: string; end: string }>>([
     { open: true, start: "08:00", end: "18:00" },
     { open: true, start: "08:00", end: "18:00" },
@@ -42,7 +43,7 @@ export default function Agendamentos() {
   useEffect(() => {
     const fetchAppointments = async () => {
       try {
-        const res = await fetch("/api/appointments");
+        const res = await fetch(`${apiBase}/appointments`);
         const body = await res.json();
         setAppointments(Array.isArray(body.appointments) ? body.appointments : []);
       } catch (e) {
@@ -50,7 +51,7 @@ export default function Agendamentos() {
       }
     };
     fetchAppointments();
-  }, []);
+  }, [apiBase]);
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -68,10 +69,10 @@ export default function Agendamentos() {
       } catch (_e) { /* noop */ }
     };
     fetchSettings();
-  }, []);
+  }, [apiBase]);
 
   useEffect(() => {
-    const es = new EventSource("/api/appointments/stream");
+    const es = new EventSource(`${apiBase}/appointments/stream`);
     es.onmessage = (e) => {
       try {
         const data = JSON.parse(e.data);
@@ -351,7 +352,7 @@ export default function Agendamentos() {
                     size="sm"
                     onClick={async () => {
                       try {
-                        const res = await fetch(`/api/appointments/${apt.id}/pay`, { method: "PUT" });
+                        const res = await fetch(`${apiBase}/appointments/${apt.id}/pay`, { method: "PUT" });
                         const body = await res.json();
                         if (body?.appointment) {
                           setAppointments((prev) => prev.map((x) => (x.id === apt.id ? body.appointment : x)));
