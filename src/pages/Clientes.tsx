@@ -52,15 +52,15 @@ export default function Clientes() {
       <div className="space-y-4">
         {/* Stats */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div className="bg-card rounded-xl p-4 border border-border animate-slide-up">
+          <div className="bg-card glass-strong rounded-xl p-4 border border-border animate-slide-up">
             <p className="text-sm text-muted-foreground">Total de Clientes</p>
             <p className="text-2xl font-bold text-foreground">{clients.length}</p>
           </div>
-          <div className="bg-card rounded-xl p-4 border border-border animate-slide-up" style={{ animationDelay: "50ms" }}>
+          <div className="bg-card glass-strong rounded-xl p-4 border border-border animate-slide-up" style={{ animationDelay: "50ms" }}>
             <p className="text-sm text-muted-foreground">Clientes Ativos</p>
             <p className="text-2xl font-bold text-success">{clients.filter(c => c.status === "active").length}</p>
           </div>
-          <div className="bg-card rounded-xl p-4 border border-border animate-slide-up" style={{ animationDelay: "100ms" }}>
+          <div className="bg-card glass-strong rounded-xl p-4 border border-border animate-slide-up" style={{ animationDelay: "100ms" }}>
             <p className="text-sm text-muted-foreground">Novos Este Mês</p>
             <p className="text-2xl font-bold text-primary">{clients.filter(c => c.status === "new").length}</p>
           </div>
@@ -98,7 +98,7 @@ export default function Clientes() {
         </div>
 
         {/* Client List */}
-        <div className="bg-card rounded-xl border border-border overflow-hidden animate-fade-in">
+        <div className="bg-card glass-strong rounded-xl border border-border overflow-hidden animate-fade-in">
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead>

@@ -9,12 +9,6 @@ const actions = [
     gradient: "gradient-primary"
   },
   { 
-    icon: UserPlus, 
-    label: "Novo Cliente", 
-    description: "Cadastre um cliente",
-    gradient: "gradient-accent"
-  },
-  { 
     icon: MessageSquare, 
     label: "Enviar Lembrete", 
     description: "Notifique clientes",

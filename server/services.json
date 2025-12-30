@@ -1,0 +1,5 @@
+[
+  { "id": "svc-1", "name": "Corte de Cabelo", "price": 60, "durationMin": 45, "description": "Corte masculino com finalização", "category": "Cabelo" },
+  { "id": "svc-2", "name": "Barba", "price": 40, "durationMin": 30, "description": "Aparar e desenhar a barba", "category": "Barba" },
+  { "id": "svc-3", "name": "Hidratação", "price": 80, "durationMin": 50, "description": "Tratamento capilar hidratante", "category": "Tratamento" }
+]

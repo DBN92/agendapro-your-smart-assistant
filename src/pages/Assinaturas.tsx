@@ -59,7 +59,7 @@ export default function Assinaturas() {
     >
       <div className="space-y-6">
         {/* Current Plan */}
-        <div className="bg-card rounded-xl border border-border overflow-hidden animate-slide-up">
+        <div className="bg-card glass-strong rounded-xl border border-border overflow-hidden animate-slide-up">
           <div className="p-6 border-b border-border bg-gradient-to-r from-primary/5 to-transparent">
             <div className="flex flex-wrap items-start justify-between gap-4">
               <div>
@@ -100,7 +100,7 @@ export default function Assinaturas() {
         </div>
 
         {/* Payment Method */}
-        <div className="bg-card rounded-xl border border-border p-6 animate-slide-up" style={{ animationDelay: "50ms" }}>
+        <div className="bg-card glass-strong rounded-xl border border-border p-6 animate-slide-up" style={{ animationDelay: "50ms" }}>
           <h3 className="font-semibold text-foreground mb-4">Método de Pagamento</h3>
           <div className="flex items-center justify-between p-4 rounded-lg bg-muted/30 border border-border">
             <div className="flex items-center gap-4">
@@ -127,7 +127,7 @@ export default function Assinaturas() {
                   "rounded-xl border p-5 transition-all",
                   plan.current 
                     ? "border-primary bg-primary/5 shadow-glow" 
-                    : "border-border bg-card hover:border-primary/50"
+                    : "border-border bg-card glass-strong hover:border-primary/50"
                 )}
               >
                 {plan.recommended && (

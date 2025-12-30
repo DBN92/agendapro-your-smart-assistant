@@ -19,7 +19,7 @@ export function StatsCard({
   iconColor = "text-primary"
 }: StatsCardProps) {
   return (
-    <div className="bg-card rounded-xl p-5 shadow-sm border border-border hover:shadow-md transition-shadow duration-200 animate-slide-up">
+    <div className="bg-card glass-strong rounded-xl p-5 shadow-sm border border-border hover:shadow-md transition-shadow duration-200 animate-slide-up">
       <div className="flex items-start justify-between">
         <div className="space-y-2">
           <p className="text-sm font-medium text-muted-foreground">{title}</p>

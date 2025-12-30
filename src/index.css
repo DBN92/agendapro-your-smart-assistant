@@ -1,11 +1,11 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
 @import '@fontsource/plus-jakarta-sans/400.css';
 @import '@fontsource/plus-jakarta-sans/500.css';
 @import '@fontsource/plus-jakarta-sans/600.css';
 @import '@fontsource/plus-jakarta-sans/700.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   :root {
@@ -55,20 +55,20 @@
     --radius: 0.75rem;
     
     /* Sidebar */
-    --sidebar-background: 210 35% 12%;
-    --sidebar-foreground: 210 20% 85%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 210 40% 12%;
     --sidebar-primary: 38 92% 50%;
     --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 30% 18%;
-    --sidebar-accent-foreground: 210 20% 95%;
-    --sidebar-border: 210 30% 20%;
+    --sidebar-accent: 210 20% 94%;
+    --sidebar-accent-foreground: 210 40% 25%;
+    --sidebar-border: 210 20% 88%;
     --sidebar-ring: 192 75% 50%;
     
     /* Custom Gradients */
     --gradient-primary: linear-gradient(135deg, hsl(192 75% 28%) 0%, hsl(192 75% 38%) 100%);
     --gradient-accent: linear-gradient(135deg, hsl(38 92% 50%) 0%, hsl(28 92% 55%) 100%);
     --gradient-surface: linear-gradient(180deg, hsl(0 0% 100%) 0%, hsl(210 20% 98%) 100%);
-    --gradient-sidebar: linear-gradient(180deg, hsl(210 35% 14%) 0%, hsl(210 35% 10%) 100%);
+    --gradient-sidebar: linear-gradient(180deg, hsl(210 35% 14% / 0.35) 0%, hsl(210 35% 10% / 0.35) 100%);
     
     /* Shadows */
     --shadow-sm: 0 1px 2px 0 hsl(210 20% 50% / 0.05);
@@ -107,10 +107,10 @@
     --input: 210 25% 20%;
     --ring: 192 75% 45%;
     
-    --sidebar-background: 210 40% 6%;
-    --sidebar-foreground: 210 20% 85%;
-    --sidebar-accent: 210 35% 12%;
-    --sidebar-border: 210 30% 15%;
+    --sidebar-background: 0 0% 100%;
+    --sidebar-foreground: 210 40% 12%;
+    --sidebar-accent: 210 20% 94%;
+    --sidebar-border: 210 20% 88%;
   }
 }
 
@@ -131,6 +131,21 @@
 @layer utilities {
   .glass {
     @apply bg-card/80 backdrop-blur-xl;
+  }
+  .glass-strong {
+    @apply bg-card/60 backdrop-blur-2xl shadow-glow;
+  }
+  .liquid-bg {
+    background:
+      radial-gradient(1200px 600px at 8% 12%, hsl(var(--primary) / 0.12), transparent 55%),
+      radial-gradient(900px 500px at 92% 18%, hsl(var(--accent) / 0.10), transparent 60%),
+      radial-gradient(800px 500px at 50% 85%, hsl(var(--primary) / 0.08), transparent 65%),
+      var(--gradient-surface);
+    filter: saturate(1.05);
+  }
+  .sidebar-glass {
+    background: linear-gradient(180deg, hsl(var(--sidebar-background) / 0.72) 0%, hsl(var(--sidebar-background) / 0.60) 100%);
+    backdrop-filter: blur(18px) saturate(1.08);
   }
   
   .gradient-primary {
